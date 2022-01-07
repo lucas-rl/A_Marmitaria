@@ -22,7 +22,6 @@ public class MarmitaController {
 	
 	@PostMapping
 	public ResponseEntity<Marmita> addMarmita(@RequestBody Marmita marmita){
-		marmitaRepository.deleteAll();
 		return ResponseEntity.ok(marmitaRepository.save(marmita));
 	}
 	

@@ -2,7 +2,6 @@ package com.Marmitaria.domains;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -17,7 +16,8 @@ public class Pedido {
 	private List<ProdutoPedido> produtos = new ArrayList<>();
 	private List<Marmita> marmitas = new ArrayList<>();
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss", timezone = "America/Sao_Paulo")
-	private Date momento;
+	private Date momento = new Date();
+	private double total = 0;
 	
 	public Pedido() {}
 
@@ -53,15 +53,21 @@ public class Pedido {
 		this.momento = momento;
 	}
 
-	public double valorTotal() {
-		double total = 0;
+	public double getTotal() {
+		return total;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
+
+	public void valorTotal() {
 		for (Marmita marmita : marmitas) {
 			total += marmita.getPreco();
 		}
 		for (ProdutoPedido produtoPedido : produtos) {
 			total += produtoPedido.getProduto().getPreco() * produtoPedido.getQuantidade();
 		}
-		return total;
 	}
 	
 }
